@@ -50,6 +50,14 @@ export default class Pallete extends Component {
     this.randomColor();
   }
 
+  handlePalleteColoursBtn = () => {
+    localStorage.removeItem('colorPallete');
+    this.setState({
+      palleteColors: ['rgb(0, 0, 0)'],
+    })
+
+  }
+
   render() {
     const { palleteColors } = this.state;
     return (
@@ -64,6 +72,13 @@ export default class Pallete extends Component {
             </div>)
           )
         }
+        <button
+          type='button'
+          id="new-random-colours"
+          onClick={ this.handlePalleteColoursBtn }
+        >
+        New Random Colours
+        </button>
       </section>
     )
   }

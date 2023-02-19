@@ -4,8 +4,25 @@
 }
 
 .pallete > div {
-  width: 50px;
-  height: 50px;
   border: 2px solid black;
+  height: 50px;
   margin: 10px;
+  width: 50px;
+}
+
+#new-random-colours {
+  background-color: transparent;
+  border: 2px solid black;
+  border-radius: 10px;
+  height: 54px;
+  margin: 10px;
+  width: 130px;
+  word-wrap: break-word;
+}
+
+#new-random-colours:hover {
+  background-color: black;
+  color: white;
+  cursor: pointer;
+  transition-duration: 0.2s;
 }
