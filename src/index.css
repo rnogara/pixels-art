@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Silkscreen:wght@400;700&display=swap');
 
+* {
+  font-family: Silkscreen;
+  border-style: none;
+}
+
 body {
   background-image: url(./assets/7686082.jpg);
   background-repeat: no-repeat;
   background-size: cover;
-  font-family: Silkscreen;
   margin: 0;
 }
