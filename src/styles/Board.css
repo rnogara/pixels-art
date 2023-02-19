@@ -1,14 +1,20 @@
 #board-size {
-  width: 50px;
-  text-align: center;
-  padding: 3px;
   border: 1px solid black;
   border-radius: 3px;
+  padding: 3px;
+  text-align: center;
+  width: 50px;
+}
+
+#board {
+  display: flex;
+  flex-flow: row wrap;
+  margin: 10px;
 }
 
 .board-pixel {
-  width: 40px;
-  height: 40px;
   border: 1px solid black;
+  height: 38px;
   margin: 0;
+  width: 38px;
 }

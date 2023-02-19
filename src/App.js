@@ -1,15 +1,13 @@
 import './App.css';
-import Board from './components/Board';
 import Footer from './components/Footer';
 import Header from './components/Header';
-import Pallete from './components/Pallete';
+import MainContent from './components/MainContent';
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Pallete />
-      <Board />
+      <MainContent />
       <Footer />
     </div>
   );

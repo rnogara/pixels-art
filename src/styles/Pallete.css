@@ -5,9 +5,15 @@
 
 .pallete > div {
   border: 2px solid black;
+  border-radius: 50%;
   height: 50px;
   margin: 10px;
   width: 50px;
+}
+
+.pallete > div:hover {
+  border: 2px solid white;
+  cursor: pointer;
 }
 
 #new-random-colours {

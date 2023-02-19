@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import '../styles/Pallete.css';
 
 export default class Pallete extends Component {
@@ -60,6 +61,7 @@ export default class Pallete extends Component {
 
   render() {
     const { palleteColors } = this.state;
+    const { handlePalleteClick } = this.props;
     return (
       <section className='pallete'>
         {
@@ -67,7 +69,7 @@ export default class Pallete extends Component {
             <div
               key={ index }
               style={{backgroundColor: color}}
-              // onClick={ this.handlePalleteClick }
+              onClick={ () => handlePalleteClick(color) }
             >
             </div>)
           )
@@ -83,3 +85,7 @@ export default class Pallete extends Component {
     )
   }
 }
+
+Pallete.protoTypes = {
+  handlePalleteClick: PropTypes.func,
+}.isRequired;
