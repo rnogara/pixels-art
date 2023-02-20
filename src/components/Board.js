@@ -24,15 +24,14 @@ export default class Board extends Component {
   handleSavedBoard = (savedBoard) => {
     const { handleBoardPixelClick } = this.props;
     const savedPixels = [];
-    for (let i = 0; i < savedBoard[0].qnt; i += 1) {
-      const correspondingPixel = savedBoard.find((pixel) => pixel.id === `${i}`);
+    for (let i = 0; i < savedBoard.length; i += 1) {
       savedPixels.push(
         <div
           className='board-pixel'
           id={ i }
           key={ i }
           onClick={ handleBoardPixelClick }
-          style={{backgroundColor: correspondingPixel.bg || '#fff' }}
+          style={{backgroundColor: savedBoard[i]}}
         >
         </div>)
     }
@@ -42,12 +41,14 @@ export default class Board extends Component {
   }
 
   handleSaveBtn = () => {
-    const { boardTotalPixel } = this.state;
-    const { paintedBoard } = this.props;
-    if (paintedBoard.length !== 0) {
-      const toSave = [{qnt: boardTotalPixel}, ...paintedBoard]
-      localStorage.setItem('board', JSON.stringify(toSave));
-    }
+    const pixels = document.querySelectorAll('.board-pixel');
+    const toSave = [];
+    pixels.forEach((pixel) => {
+      const bg = pixel.style.backgroundColor;
+      toSave.push(bg);
+    });
+    localStorage.setItem('board', JSON.stringify(toSave));
+    
   }
 
   handleBoardSize = (value) => {
@@ -85,11 +86,13 @@ export default class Board extends Component {
   }
 
   handleClearBtn = () => {
-    const { boardSize } = this.state;
-    this.handleBoardSize(boardSize);
+    const pixels = document.querySelectorAll('.board-pixel');
+    pixels.forEach((pixel) => {
+      pixel.style.backgroundColor = '#fff';
+    });
     const board = JSON.parse(localStorage.getItem('board'));
     if(board) {
-      JSON.parse(localStorage.revomeItem('board'));
+      localStorage.removeItem('board');
     }
   }
 
@@ -139,5 +142,4 @@ export default class Board extends Component {
 
 Board.propTypes = {
   handleBoardPixelClick: PropTypes.func,
-  paintedBoard: PropTypes.array,
 }.isRequired;
