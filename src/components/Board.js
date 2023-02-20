@@ -13,26 +13,53 @@ export default class Board extends Component {
 
   componentDidMount() {
     const { totalPixelArr, boardSize } = this.state;
-    if (totalPixelArr.length === 0) {
+    const board = JSON.parse(localStorage.getItem('board'));
+    if (board) {
+      this.handleSavedBoard(board);
+    } else if (totalPixelArr.length === 0) {
       this.handleBoardSize(boardSize);
     }
   }
 
+  handleSavedBoard = (savedBoard) => {
+    console.log(savedBoard);
+    // this.setState({
+    //   totalPixelArr: [],
+    // })
+  }
+
+  handleBoardChange = () => {
+    const { totalPixelArr } = this.state;
+    console.log(totalPixelArr);
+    localStorage.setItem('board', JSON.stringify(totalPixelArr));
+  }
+
   handleBoardSize = (value) => {
-    if ( value < 5 && value > 50) {
+    if ( value < 5 || value > 10) {
       this.setState({
-        errorMessage: 'Invalid Board Size, it must be higher than 5 and less than 50',
-      })
+        errorMessage: 'Invalid Board Size, it must be between 5 and 10',
+      });
+      return;
     } else {
       this.setState({
         boardBoxWidth: (value * 40),
         boardSize: value,
         boardTotalPixel: (value * value),
+        errorMessage: '',
       }, () => {
         const { boardTotalPixel } = this.state;
+        const { handleBoardPixelClick } = this.props;
         const pixelArr = [];
         for (let i = 0; i < boardTotalPixel; i += 1) {
-          pixelArr.push(i);
+          pixelArr.push(
+          <div
+            className='board-pixel'
+            id={ i }
+            key={ i }
+            onClick={ handleBoardPixelClick }
+            style={{backgroundColor: '#fff'}}
+          >
+          </div>);
         }
         this.setState(() => ({
           totalPixelArr: pixelArr,
@@ -42,8 +69,7 @@ export default class Board extends Component {
   }
 
   render() {
-    const { boardBoxWidth, boardSize, totalPixelArr } = this.state;
-    const { handleBoardPixelClick } = this.props;
+    const { boardBoxWidth, boardSize, errorMessage, totalPixelArr } = this.state;
     return (
       <section>
         <label htmlFor='board-size'>
@@ -55,18 +81,16 @@ export default class Board extends Component {
           />
           x Board Size
         </label>
-        <div id='board' style={{ width: `${boardBoxWidth}px`}}>
-          { totalPixelArr.map((index) => (
-              (<div
-              className='board-pixel'
-              id={ index }
-              key={ index }
-              onClick={ handleBoardPixelClick }
-              style={{backgroundColor: '#fff'}}
+        {
+          errorMessage 
+          ? <p>{errorMessage}</p>
+          : <div
+              id='board'
+              style={{ width: `${boardBoxWidth}px`}}
             >
-            </div>)
-          )) }
-        </div>
+              { totalPixelArr }
+            </div>
+        }
       </section>
     )
   }

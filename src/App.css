@@ -1,6 +1,12 @@
 .App {
+  align-items: center;
+  background-image: url(./assets/525.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  height: 100vh;
+  position: relative;
+  width: 100%;
 }
 

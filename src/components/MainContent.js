@@ -18,6 +18,7 @@ export default class MainContent extends Component {
     if (pickedColor) {
       target.style.backgroundColor = pickedColor;
     }
+    
   }
 
   render() {
