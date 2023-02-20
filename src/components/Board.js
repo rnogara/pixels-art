@@ -22,16 +22,32 @@ export default class Board extends Component {
   }
 
   handleSavedBoard = (savedBoard) => {
-    console.log(savedBoard);
-    // this.setState({
-    //   totalPixelArr: [],
-    // })
+    const { handleBoardPixelClick } = this.props;
+    const savedPixels = [];
+    for (let i = 0; i < savedBoard[0].qnt; i += 1) {
+      const correspondingPixel = savedBoard.find((pixel) => pixel.id === `${i}`);
+      savedPixels.push(
+        <div
+          className='board-pixel'
+          id={ i }
+          key={ i }
+          onClick={ handleBoardPixelClick }
+          style={{backgroundColor: correspondingPixel.bg || '#fff' }}
+        >
+        </div>)
+    }
+    this.setState({
+      totalPixelArr: savedPixels,
+    });
   }
 
-  handleBoardChange = () => {
-    const { totalPixelArr } = this.state;
-    console.log(totalPixelArr);
-    localStorage.setItem('board', JSON.stringify(totalPixelArr));
+  handleSaveBtn = () => {
+    const { boardTotalPixel } = this.state;
+    const { paintedBoard } = this.props;
+    if (paintedBoard.length !== 0) {
+      const toSave = [{qnt: boardTotalPixel}, ...paintedBoard]
+      localStorage.setItem('board', JSON.stringify(toSave));
+    }
   }
 
   handleBoardSize = (value) => {
@@ -64,14 +80,23 @@ export default class Board extends Component {
         this.setState(() => ({
           totalPixelArr: pixelArr,
         }));
-      })
+    })
+    }
+  }
+
+  handleClearBtn = () => {
+    const { boardSize } = this.state;
+    this.handleBoardSize(boardSize);
+    const board = JSON.parse(localStorage.getItem('board'));
+    if(board) {
+      JSON.parse(localStorage.revomeItem('board'));
     }
   }
 
   render() {
     const { boardBoxWidth, boardSize, errorMessage, totalPixelArr } = this.state;
     return (
-      <section>
+      <section id='board-wrapper'>
         <label htmlFor='board-size'>
           <input
             id='board-size'
@@ -81,16 +106,32 @@ export default class Board extends Component {
           />
           x Board Size
         </label>
-        {
-          errorMessage 
-          ? <p>{errorMessage}</p>
-          : <div
-              id='board'
-              style={{ width: `${boardBoxWidth}px`}}
-            >
-              { totalPixelArr }
-            </div>
-        }
+        <div className='board'>
+          <button
+            className='board-button'
+            type='button'
+            onClick={ this.handleClearBtn }
+          >
+          Clear Board
+          </button>
+          {
+            errorMessage 
+            ? <p>{errorMessage}</p>
+            : <div
+                id='board'
+                style={{ width: `${boardBoxWidth}px`}}
+              >
+                { totalPixelArr }
+              </div>
+          }
+          <button
+            className='board-button'
+            type='button'
+            onClick={ this.handleSaveBtn }
+          >
+          Save Board
+          </button>
+        </div>
       </section>
     )
   }
@@ -98,4 +139,5 @@ export default class Board extends Component {
 
 Board.propTypes = {
   handleBoardPixelClick: PropTypes.func,
+  paintedBoard: PropTypes.array,
 }.isRequired;

@@ -5,6 +5,7 @@ import Pallete from './Pallete';
 export default class MainContent extends Component {
   state = {
     pickedColor: '',
+    paintedBoard: [],
   }
 
   handlePalleteClick = (color) => {
@@ -17,15 +18,20 @@ export default class MainContent extends Component {
     const { pickedColor } = this.state;
     if (pickedColor) {
       target.style.backgroundColor = pickedColor;
+      const pixel = { id: target.id, bg: pickedColor }
+      this.setState((prevState) => ({
+        paintedBoard: [...prevState.paintedBoard, pixel]
+      }));
     }
     
   }
 
   render() {
+    const { paintedBoard } = this.state;
     return (
       <>
       <Pallete handlePalleteClick={ this.handlePalleteClick } />
-      <Board handleBoardPixelClick={ this.handleBoardPixelClick } />
+      <Board handleBoardPixelClick={ this.handleBoardPixelClick } paintedBoard={paintedBoard}/>
       </>
     )
   }

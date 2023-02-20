@@ -12,9 +12,27 @@
   margin: 10px;
 }
 
+#board-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .board-pixel {
   border: 1px solid black;
   height: 38px;
   margin: 0;
   width: 38px;
+}
+
+.board {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.board-button {
+  height: 54px;
+  margin: 15px;
+  width: 70px;
 }
