@@ -1,4 +1,4 @@
-# Projeto Star Wars - Consumindo APIs com React
+# Projeto Pixels Art
 
 ![License](https://img.shields.io/badge/License-MIT-blue.svg)
 
